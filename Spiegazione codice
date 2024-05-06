@@ -1,0 +1,20 @@
+1. `push ebp`: Questa istruzione mette il contenuto del registro ebp nello stack.
+2. `mov ebp, esp`: Questa istruzione copia il contenuto dello stack pointer (esp) nel registro base pointer (ebp), in sostanza stabilendo un nuovo frame di stack.
+3. `push ecx`: Mette il contenuto del registro ecx nello stack.
+4. `push 0`: Mette il valore 0 nello stack (dwReserved).
+5. `push 0`: Mette il valore 0 nello stack (lpdwFlags).
+6. `call ds:InternetGetConnectedState`: Chiama la funzione `InternetGetConnectedState` dal segmento di dati specificato (ds).
+7. `mov eax, [ebp+var_4]`: Mette il valore memorizzato all'indirizzo `[ebp+var_4]` nel registro eax.
+8. `cmp [ebp+var_4], 0`: Compara il valore memorizzato all'indirizzo `[ebp+var_4]` con 0.
+9. `jz short loc_40102B`: Salta a `loc_40102B` se il confronto precedente ha dato esito zero (cioè se il valore è zero).
+10. `push offset aSuccessInterne`: Mette l'indirizzo della stringa "Success: Internet Connection\n" nello stack.
+11. `call sub_40105F`: Chiama la subroutine `sub_40105F`.
+12. `add esp, 4`: Pulisce 4 byte dallo stack.
+13. `mov eax, 1`: Mette il valore 1 nel registro eax.
+14. `jmp short loc_40103A`: Salta incondizionatamente a `loc_40103A`.
+
+Costrutti di controllo:
+- `cmp` e `jz`: Questi comandi formano un costrutto `if`, dove se il valore è zero (quindi c'è una connessione Internet), viene eseguito il blocco di codice successivo, altrimenti il programma salta direttamente a `loc_40102B`.
+- `jmp`: Questo è un salto incondizionato, che equivale a un `goto`. Nel contesto, funge da `else`, quindi se non viene trovata una connessione Internet (il risultato del `cmp` è diverso da zero), il programma passa direttamente a `loc_40103A`.
+
+Questo codice potrebbe essere parte di un blocco che controlla lo stato della connessione Internet. Se la connessione è attiva, verrà stampato un messaggio di successo utilizzando `printf`, altrimenti verrà eseguito altro codice (non mostrato qui).
